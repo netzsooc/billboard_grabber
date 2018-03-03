@@ -14,6 +14,7 @@ def obtener_datos(url):
                             urls enviadas
     """
     datos = pd.read_html(url, header=0)
+    #Tomar la primera tabla que tenga la forma n x 3.
     for tabla in datos:
         if tabla.shape[1] == 3:
             datos = tabla
@@ -25,7 +26,8 @@ anos_datos = []
 for i in range(1959, 2018):
     nueva_url = "{}{}".format(url, i)
     my_df = obtener_datos(nueva_url)
-    
+
+    # Si hay un error en la forma de la tabla terminar el programa y decir el año
     if my_df.shape[1] != 2:
         print("error en el año {}".format(i))
         print(my_df.shape)
